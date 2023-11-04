@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -65,11 +66,24 @@ public class UserController {
         return (List<User>) userRepository.findAll();
     }
 
-    @GetMapping("/users/{id}")
+    @GetMapping("/users/id/{id}")
     public ResponseEntity<User> getUserById(@PathVariable String id) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException("User not found with ID: " + id));
-        return ResponseEntity.ok(user);
+        Integer userID = Integer.parseInt(id);
+        User user = userRepository.findById(userID);
+        if (user != null) {
+            return ResponseEntity.ok(user); // Retorna 200 OK com o objeto User
+        } else {
+            return ResponseEntity.notFound().build(); // Retorna 404 Not Found se o usuário não for encontrado
+        }
+    }
+    @GetMapping("/users/{login}")
+    public ResponseEntity<User> getUserByLogin(@PathVariable String login) {
+        User user = userRepository.findByLogin(login);
+        if (user != null) {
+            return ResponseEntity.ok(user); // Retorna 200 OK com o objeto User
+        } else {
+            return ResponseEntity.notFound().build(); // Retorna 404 Not Found se o usuário não for encontrado
+        }
     }
 
     @PutMapping("/update/{id}")
@@ -79,8 +93,10 @@ public class UserController {
     }
 
     @DeleteMapping("/delete/{id}")
+    @Transactional
     public ResponseEntity<String> deleteUser(@PathVariable String id) {
-        userRepository.deleteById(id);
-        return ResponseEntity.status(HttpStatus.OK).body("Usuário com id "+ id +" excluído com sucesso");
+        Integer userID = Integer.parseInt(id);
+        userRepository.deleteById(userID);
+        return ResponseEntity.status(HttpStatus.OK).body("Usuário com id " + id + " excluído com sucesso");
     }
 }

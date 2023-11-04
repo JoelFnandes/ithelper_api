@@ -20,7 +20,7 @@ public class User implements UserDetails {
     @Id
     @Column(name="idusuario", unique = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Integer id;
 
     @Column(length = 40, name = "nomecompleto")
     private String nomeCompleto;
@@ -45,10 +45,10 @@ public class User implements UserDetails {
 
     }
     @JsonView(Views.Admin.class)
-    public String getId() {
+    public Integer getId() {
         return id;
     }
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -108,7 +108,7 @@ public class User implements UserDetails {
     }
 
     @Override
-    @JsonView(Views.Admin.class)
+    @JsonView({Views.Public.class, Views.Admin.class})
     public Collection<? extends GrantedAuthority> getAuthorities() {
         // TODO Auto-generated method stub
         return List.of(new SimpleGrantedAuthority("USER"));
@@ -155,6 +155,7 @@ public class User implements UserDetails {
         // TODO Auto-generated method stub
         return true;
     }
+
 
 
 }
