@@ -14,7 +14,7 @@ import java.util.List;
 
 @Entity
 @Table(name="Usuario", schema = "public")
-@JsonPropertyOrder({"id", "username", "password"})
+@JsonPropertyOrder({"id", "nomeCompleto", "email", "dataNascimento", "nomeUsuario", "tipoUsuario"})
 public class User implements UserDetails {
 
     @Id
@@ -33,7 +33,7 @@ public class User implements UserDetails {
 
 
     @Column(length = 25, unique = true, name = "nomeusuario")
-    private String login;
+    private String nomeUsuario;
 
     @Column(length = 16, name = "senha")
     private String password;
@@ -44,7 +44,8 @@ public class User implements UserDetails {
     public User() {
 
     }
-    @JsonView(Views.Admin.class)
+
+    @JsonView({Views.Public.class})
     public Integer getId() {
         return id;
     }
@@ -52,16 +53,16 @@ public class User implements UserDetails {
         this.id = id;
     }
 
-    public String getLogin() {
+    @JsonView({Views.Public.class})
+    public String getNomeUsuario() {
         // TODO Auto-generated method stub
-        return login;
+        return nomeUsuario;
     }
 
-    public void setLogin(String login) {
+    public void setNomeUsuario(String nomeUsuario) {
         // TODO Auto-generated method stub
-        this.login= login;
+        this.nomeUsuario = nomeUsuario;
     }
-
     public String getPass() {
         return password;
     }
@@ -71,6 +72,7 @@ public class User implements UserDetails {
         this.password = encryptedPassword;
     }
 
+    @JsonView({Views.Public.class})
     public String getNomeCompleto() {
         return nomeCompleto;
     }
@@ -78,7 +80,7 @@ public class User implements UserDetails {
     public void setNomeCompleto(String nomeCompleto) {
         this.nomeCompleto = nomeCompleto;
     }
-
+    @JsonView({Views.Public.class})
     public String getEmail() {
         return email;
     }
@@ -87,6 +89,7 @@ public class User implements UserDetails {
         this.email = email;
     }
 
+    @JsonView({Views.Public.class})
     public Timestamp getDataNascimento() {
         return dataNascimento;
     }
@@ -95,10 +98,7 @@ public class User implements UserDetails {
         this.dataNascimento = dataNascimento;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
+    @JsonView({Views.Public.class})
     public String getTipoUsuario() {
         return tipoUsuario;
     }
@@ -108,49 +108,42 @@ public class User implements UserDetails {
     }
 
     @Override
-    @JsonView({Views.Public.class, Views.Admin.class})
     public Collection<? extends GrantedAuthority> getAuthorities() {
         // TODO Auto-generated method stub
         return List.of(new SimpleGrantedAuthority("USER"));
     }
 
     @Override
-    @JsonView({Views.Public.class, Views.Admin.class})
     public String getPassword() {
         // TODO Auto-generated method stub
         return password;
     }
 
     @Override
-    @JsonView({Views.Public.class, Views.Admin.class})
     public String getUsername() {
         // TODO Auto-generated method stub
-        return login;
+        return nomeUsuario;
     }
 
     @Override
-    @JsonView(Views.Admin.class)
     public boolean isAccountNonExpired() {
         // TODO Auto-generated method stub
         return true;
     }
 
     @Override
-    @JsonView(Views.Admin.class)
     public boolean isAccountNonLocked() {
         // TODO Auto-generated method stub
         return true;
     }
 
     @Override
-    @JsonView(Views.Admin.class)
     public boolean isCredentialsNonExpired() {
         // TODO Auto-generated method stub
         return true;
     }
 
     @Override
-    @JsonView(Views.Admin.class)
     public boolean isEnabled() {
         // TODO Auto-generated method stub
         return true;

@@ -32,7 +32,7 @@ public class UserService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException(userId));
 
-        user.setLogin(updatedUser.getLogin());
+        user.setNomeUsuario(updatedUser.getNomeUsuario());
         // Criptografar a nova senha antes de atualizar no banco de dados
         String encryptedPassword = passwordEncoder.encode(updatedUser.getPass());
         user.setPass(encryptedPassword);

@@ -76,9 +76,10 @@ public class UserController {
             return ResponseEntity.notFound().build(); // Retorna 404 Not Found se o usuário não for encontrado
         }
     }
+    @JsonView({Views.Admin.class})
     @GetMapping("/users/{login}")
     public ResponseEntity<User> getUserByLogin(@PathVariable String login) {
-        User user = userRepository.findByLogin(login);
+        User user = userRepository.findByNomeUsuario(login);
         if (user != null) {
             return ResponseEntity.ok(user); // Retorna 200 OK com o objeto User
         } else {
@@ -89,7 +90,7 @@ public class UserController {
     @PutMapping("/update/{id}")
     public ResponseEntity<String> updateUser(@PathVariable String id, @RequestBody User updatedUser) {
         User user = userService.updateUser(id, updatedUser);
-        return ResponseEntity.status(HttpStatus.OK).body("Usuário "+ user.getLogin() +" atualizado com sucesso");
+        return ResponseEntity.status(HttpStatus.OK).body("Usuário "+ user.getNomeUsuario() +" atualizado com sucesso");
     }
 
     @DeleteMapping("/delete/{id}")
