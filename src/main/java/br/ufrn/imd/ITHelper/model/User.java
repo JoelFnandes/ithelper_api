@@ -18,7 +18,7 @@ import java.util.List;
 public class User implements UserDetails {
 
     @Id
-    @Column(name="idusuario", unique = true)
+    @Column(name="idusuario", unique = true )
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
@@ -31,15 +31,14 @@ public class User implements UserDetails {
     @Column(name = "datanascimento")
     private java.sql.Timestamp dataNascimento;
 
-
-    @Column(length = 25, unique = true, name = "nomeusuario")
+    @Column(length = 30, unique = true, name = "nomeusuario")
     private String nomeUsuario;
-
-    @Column(length = 16, name = "senha")
-    private String password;
 
     @Column(length = 1, name = "tipousuario")
     private String tipoUsuario;
+
+    @Column(length = 16, name = "senhausuario")
+    private String password;
 
     public User() {
 

@@ -2,7 +2,6 @@ package br.ufrn.imd.ITHelper.controller;
 
 import br.ufrn.imd.ITHelper.config.Views;
 import br.ufrn.imd.ITHelper.dto.Login;
-import br.ufrn.imd.ITHelper.exception.UserNotFoundException;
 import br.ufrn.imd.ITHelper.security.TokenService;
 import br.ufrn.imd.ITHelper.service.UserService;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -21,7 +20,6 @@ import br.ufrn.imd.ITHelper.repository.UserRepository;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class UserController {
@@ -34,7 +32,7 @@ public class UserController {
     @Autowired
     private TokenService tokenService;
 
-    public UserController(UserRepository userRepository, UserService userService) {
+    public UserController(UserRepository userRepository,  UserService userService) {
         this.userRepository = userRepository;
         this.userService = userService;
 
@@ -58,6 +56,7 @@ public class UserController {
         User createdUser = userService.createUser(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
     }
+
 
     // ListarTodos apenas se autenticado
     @GetMapping("/users")
