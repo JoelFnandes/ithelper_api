@@ -12,11 +12,11 @@ public class Employee {
     @Column(name = "idfuncionario")
     private Long idFuncionario;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne
     @JoinColumn(name = "idusuario", nullable = false)
     private User usuario;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne
     @JoinColumn(name = "iddepartamento", nullable = false)
     private Department departamento;
 
