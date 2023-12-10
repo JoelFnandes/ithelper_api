@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.*;
 public class PhoneController {
 
     @Autowired
-    private PhoneService telefoneService;
+    private PhoneService phoneService;
 
     @PostMapping
     public ResponseEntity<Phone> criarPhone(@RequestBody Phone telefone) {
-        Phone novoPhone = telefoneService.salvarPhone(telefone);
+        Phone novoPhone = phoneService.salvarTelefone(telefone);
         return ResponseEntity.ok(novoPhone);
     }
 

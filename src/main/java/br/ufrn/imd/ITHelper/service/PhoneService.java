@@ -9,11 +9,11 @@ import org.springframework.stereotype.Service;
 public class PhoneService {
 
     @Autowired
-    private PhoneRepository telefoneRepository;
+    private PhoneRepository phoneRepository;
 
     public Phone salvarTelefone(Phone telefone) {
         // Adicione lógica de negócios, se necessário
-        return telefoneRepository.save(telefone);
+        return phoneRepository.save(telefone);
     }
 
     // Adicione outros métodos de serviço conforme necessário

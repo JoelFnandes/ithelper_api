@@ -8,15 +8,20 @@ public class Phone {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idtelefone")
     private Long idTelefone;
 
     @ManyToOne
-    @JoinColumn(name = "idUser", nullable = false)
+    @JoinColumn(name = "idusuario", nullable = false)
     private User usuario;
 
+    @Column(name = "tipotelefone")
     private String tipoTelefone;
 
+    @Column(name = "numerotelefone")
     private String numeroTelefone;
+
+    // Getters and Setters
 
     public Long getIdTelefone() {
         return idTelefone;
@@ -50,4 +55,3 @@ public class Phone {
         this.numeroTelefone = numeroTelefone;
     }
 }
-

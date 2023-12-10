@@ -1,47 +1,96 @@
 package br.ufrn.imd.ITHelper.model;
 
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import java.sql.Timestamp;
+
 @Entity
-@Table(name = "chamado", schema = "public")
+@JsonIgnoreProperties({"employee"})
+@Table(name = "Chamado", schema = "public")
 public class Ticket {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idchamado")
-    private Long idTicket;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long idChamado;
 
-    @Column(name = "descricaochamado")
-    private String descricaoTicket;
 
     @ManyToOne
     @JoinColumn(name = "idfuncionario", nullable = false)
-    private Employee employee;
+    private Employee funcionario;
+
+    @Column(name = "descricaochamado")
+    private String descricaoChamado;
+
+    @Column(name = "datahoraabertura", nullable = true)
+    private Timestamp dataHoraAbertura;
 
 
-    public Long getIdTicket() {
-        return idTicket;
+    @Column(name = "prioridade", nullable = true)
+    private char prioridade;
+
+
+    @Column(name = "statuschamado", nullable = true)
+    private char statusChamado;
+
+    @Column(name = "datahorafechamento", nullable = true)
+    private Timestamp dataHoraFechamento;
+
+    // getters and setters
+
+    public Long getIdChamado() {
+        return idChamado;
     }
 
-    public void setIdTicket(Long idTicket) {
-        this.idTicket = idTicket;
+    public void setIdChamado(Long idChamado) {
+        this.idChamado = idChamado;
     }
 
-    public String getDescricaoTicket() {
-        return descricaoTicket;
+    public Employee getFuncionario() {
+        return funcionario;
     }
 
-    public void setDescricaoTicket(String descricaoTicket) {
-        this.descricaoTicket = descricaoTicket;
+    public void setFuncionario(Employee funcionario) {
+        this.funcionario = funcionario;
     }
 
-    public Employee getEmployee() {
-        return employee;
+    public String getDescricaoChamado() {
+        return descricaoChamado;
     }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
+    public void setDescricaoChamado(String descricaoChamado) {
+        this.descricaoChamado = descricaoChamado;
+    }
+
+    public Timestamp getDataHoraAbertura() {
+        return dataHoraAbertura;
+    }
+
+    public void setDataHoraAbertura(Timestamp dataHoraAbertura) {
+        this.dataHoraAbertura = dataHoraAbertura;
+    }
+
+    public char getPrioridade() {
+        return prioridade;
+    }
+
+    public void setPrioridade(char prioridade) {
+        this.prioridade = prioridade;
+    }
+
+    public char getStatusChamado() {
+        return statusChamado;
+    }
+
+    public void setStatusChamado(char statusChamado) {
+        this.statusChamado = statusChamado;
+    }
+
+    public Timestamp getDataHoraFechamento() {
+        return dataHoraFechamento;
+    }
+
+    public void setDataHoraFechamento(Timestamp dataHoraFechamento) {
+        this.dataHoraFechamento = dataHoraFechamento;
     }
 }
-
-

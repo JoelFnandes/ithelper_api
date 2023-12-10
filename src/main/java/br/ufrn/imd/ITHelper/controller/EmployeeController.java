@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/funcionario")
@@ -41,9 +42,10 @@ public class EmployeeController {
     }
 
     @PostMapping
-    public ResponseEntity<Employee> createFuncionario(@RequestBody Employee employee) {
-        // Supondo que o ID do User esteja presente no Employee (ajuste conforme sua lógica)
+    public ResponseEntity<Object> createFuncionario(@RequestBody Employee employee) {
+        // Supondo que o ID do User esteja presente no Employee
         String userId = String.valueOf(employee.getUsuario().getId());
+
 
         // Encontrar o User pelo ID
         User user = userRepository.findById(userId)
