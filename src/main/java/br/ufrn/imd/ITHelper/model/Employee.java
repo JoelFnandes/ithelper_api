@@ -1,5 +1,7 @@
 package br.ufrn.imd.ITHelper.model;
 
+import br.ufrn.imd.ITHelper.config.Views;
+import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
 
 
@@ -9,6 +11,7 @@ public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView(Views.Public.class)
     @Column(name = "idfuncionario")
     private Long idFuncionario;
 

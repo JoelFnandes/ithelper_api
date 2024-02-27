@@ -25,6 +25,14 @@ public class TicketService {
         return ticketRepository.findById(id).orElse(null);
     }
 
+    public List<Ticket> obterTicketsAbertos() {
+        return ticketRepository.findByStatusChamado('P'); // Supondo que 'A' represente o status de "aberto"
+    }
+
+    public List<Ticket> obterTicketsVinculados(Long idFuncionario) {
+        return ticketRepository.findByFuncionario_IdFuncionario(idFuncionario);
+    }
+
     public List<Ticket> listarTickets() {
         return ticketRepository.findAll();
     }

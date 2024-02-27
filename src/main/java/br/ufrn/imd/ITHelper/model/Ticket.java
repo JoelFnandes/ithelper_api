@@ -1,38 +1,45 @@
 package br.ufrn.imd.ITHelper.model;
 
+import br.ufrn.imd.ITHelper.config.Views;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
 @JsonIgnoreProperties({"employee"})
 @Table(name = "Chamado", schema = "public")
-public class Ticket {
+public class    Ticket {
 
     @Id
     @Column(name = "idchamado")
+    @JsonView({Views.Public.class})
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idChamado;
 
 
     @ManyToOne
+    @JsonView({Views.Public.class})
     @JoinColumn(name = "idfuncionario", nullable = false)
     private Employee funcionario;
 
+    @JsonView({Views.Public.class})
     @Column(name = "descricaochamado")
     private String descricaoChamado;
 
+    @JsonView({Views.Public.class})
     @Column(name = "datahoraabertura", nullable = true)
     private Timestamp dataHoraAbertura;
 
 
+    @JsonView({Views.Public.class})
     @Column(name = "prioridade", nullable = true)
     private char prioridade;
 
-
+    @JsonView({Views.Public.class})
     @Column(name = "statuschamado", nullable = true)
     private char statusChamado;
-
+    @JsonView({Views.Public.class})
     @Column(name = "datahorafechamento", nullable = true)
     private Timestamp dataHoraFechamento;
 

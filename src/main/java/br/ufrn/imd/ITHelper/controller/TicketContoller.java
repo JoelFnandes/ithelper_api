@@ -1,19 +1,22 @@
 package br.ufrn.imd.ITHelper.controller;
 
+import br.ufrn.imd.ITHelper.config.Views;
 import br.ufrn.imd.ITHelper.model.Employee;
 import br.ufrn.imd.ITHelper.model.Ticket;
 import br.ufrn.imd.ITHelper.repository.EmployeeRepository;
 import br.ufrn.imd.ITHelper.service.TicketService;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 import java.util.List;
 
 @RestController
-@RequestMapping("/chamado")
+@RequestMapping("/chamados")
 public class TicketContoller {
 
     private final TicketService ticketService;
@@ -26,7 +29,7 @@ public class TicketContoller {
 
     }
 
-    @PostMapping
+    @PostMapping("/criarChamado")
     public ResponseEntity<Object> criarTicket(@RequestBody Ticket chamado) {
         try {
             Long employeeId = chamado.getFuncionario().getIdFuncionario();
@@ -66,6 +69,7 @@ public class TicketContoller {
 
 
     @GetMapping("/{id}")
+    @JsonView(Views.Public.class)
     public ResponseEntity<Ticket> obterTicketPorId(@PathVariable Long id) {
         Ticket chamado = ticketService.obterTicketPorId(id);
         if (chamado != null) {
@@ -75,7 +79,29 @@ public class TicketContoller {
         }
     }
 
+    @GetMapping("/abertos")
+    @JsonView(Views.Public.class)
+    public ResponseEntity<List<Ticket>> obterTicketsAbertos() {
+        List<Ticket> ticketsAbertos = ticketService.obterTicketsAbertos();
+        if (!ticketsAbertos.isEmpty()) {
+            return ResponseEntity.ok(ticketsAbertos);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    @GetMapping("/vinculados/{idFuncionario}")
+    @JsonView(Views.Public.class)
+    public ResponseEntity<List<Ticket>> obterTicketsVinculados(@PathVariable Long idFuncionario) {
+        List<Ticket> ticketsVinculados = ticketService.obterTicketsVinculados(idFuncionario);
+        if (!ticketsVinculados.isEmpty()) {
+            return ResponseEntity.ok(ticketsVinculados);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @GetMapping
+    @JsonView(Views.Public.class)
     public List<Ticket> listarTickets() {
         return ticketService.listarTickets();
     }
