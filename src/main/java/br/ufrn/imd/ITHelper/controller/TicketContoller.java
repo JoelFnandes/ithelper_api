@@ -1,6 +1,7 @@
 package br.ufrn.imd.ITHelper.controller;
 
 import br.ufrn.imd.ITHelper.config.Views;
+import br.ufrn.imd.ITHelper.dto.TicketDTO;
 import br.ufrn.imd.ITHelper.model.Employee;
 import br.ufrn.imd.ITHelper.model.Ticket;
 import br.ufrn.imd.ITHelper.repository.EmployeeRepository;
@@ -81,8 +82,8 @@ public class TicketContoller {
 
     @GetMapping("/abertos")
     @JsonView(Views.Public.class)
-    public ResponseEntity<List<Ticket>> obterTicketsAbertos() {
-        List<Ticket> ticketsAbertos = ticketService.obterTicketsAbertos();
+    public ResponseEntity<List<TicketDTO>> obterTicketsAbertos() {
+        List<TicketDTO> ticketsAbertos = ticketService.obterTicketsAbertos();
         if (!ticketsAbertos.isEmpty()) {
             return ResponseEntity.ok(ticketsAbertos);
         } else {
