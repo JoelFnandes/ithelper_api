@@ -13,6 +13,8 @@ public class TicketDTO {
     @JsonView({Views.Public.class})
     private String nomeUsuario;
     @JsonView({Views.Public.class})
+    private String tituloChamado;
+    @JsonView({Views.Public.class})
     private String descricaoChamado;
     @JsonView({Views.Public.class})
     private Timestamp dataHoraAbertura;
@@ -40,6 +42,14 @@ public class TicketDTO {
 
     public void setNomeUsuario(String nomeUsuario) {
         this.nomeUsuario = nomeUsuario;
+    }
+
+    public String getTituloChamado() {
+        return tituloChamado;
+    }
+
+    public void setTituloChamado(String tituloChamado) {
+        this.tituloChamado = tituloChamado;
     }
 
     public String getDescricaoChamado() {

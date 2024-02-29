@@ -90,7 +90,7 @@ public class TicketContoller {
             return ResponseEntity.notFound().build();
         }
     }
-    @GetMapping("/vinculados/{idFuncionario}")
+    @GetMapping("/vinculados/{nomeUsuario}")
     @JsonView(Views.Public.class)
     public ResponseEntity<List<Ticket>> obterTicketsVinculados(@PathVariable Long idFuncionario) {
         List<Ticket> ticketsVinculados = ticketService.obterTicketsVinculados(idFuncionario);

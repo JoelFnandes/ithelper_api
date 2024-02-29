@@ -24,6 +24,10 @@ public class    Ticket {
     private Employee funcionario;
 
     @JsonView({Views.Public.class})
+    @Column(name = "titulochamado")
+    private String tituloChamado;
+
+    @JsonView({Views.Public.class})
     @Column(name = "descricaochamado")
     private String descricaoChamado;
 
@@ -59,6 +63,14 @@ public class    Ticket {
 
     public void setFuncionario(Employee funcionario) {
         this.funcionario = funcionario;
+    }
+
+    public String getTituloChamado() {
+        return tituloChamado;
+    }
+
+    public void setTituloChamado(String tituloChamado) {
+        this.tituloChamado = tituloChamado;
     }
 
     public String getDescricaoChamado() {

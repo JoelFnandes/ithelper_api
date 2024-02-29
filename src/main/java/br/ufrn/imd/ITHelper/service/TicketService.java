@@ -38,6 +38,7 @@ public class TicketService {
 
                 ticketDTO.setIdChamado(ticket.getIdChamado());
                 ticketDTO.setNomeUsuario(ticket.getFuncionario().getUsuario().getNomeUsuario());
+                ticketDTO.setTituloChamado(ticket.getTituloChamado());
                 ticketDTO.setDescricaoChamado(ticket.getDescricaoChamado());
                 ticketDTO.setDataHoraAbertura(ticket.getDataHoraAbertura());
                 ticketDTO.setPrioridade(ticket.getPrioridade());
