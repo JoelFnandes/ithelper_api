@@ -56,14 +56,63 @@ public class TicketService {
         return null;
     }
 
-    public List<Ticket> obterTicketsVinculados(Long idFuncionario) {
-        return ticketRepository.findByFuncionario_IdFuncionario(idFuncionario);
+    public List<TicketDTO> obterTicketsVinculados(String nomeusuario) {
+
+        List<Ticket> ticketVinculados = ticketRepository.findByFuncionario_usuario_nomeUsuario(nomeusuario);
+
+        if(!ticketVinculados.isEmpty()) {
+            return ticketVinculados.stream().map(ticket -> {
+                TicketDTO ticketDTO = new TicketDTO();
+
+                ticketDTO.setIdChamado(ticket.getIdChamado());
+                ticketDTO.setNomeUsuario(ticket.getFuncionario().getUsuario().getNomeUsuario());
+                ticketDTO.setTituloChamado(ticket.getTituloChamado());
+                ticketDTO.setDescricaoChamado(ticket.getDescricaoChamado());
+                ticketDTO.setDataHoraAbertura(ticket.getDataHoraAbertura());
+                ticketDTO.setPrioridade(ticket.getPrioridade());
+                ticketDTO.setStatusChamado(ticket.getStatusChamado());
+                ticketDTO.setDataHoraFechamento(ticket.getDataHoraFechamento());
+                if (ticket.getFuncionario().getDepartamento() != null) {
+                    ticketDTO.setNomeDepartamento(ticket.getFuncionario().getDepartamento().getNomeDepartamento());
+                } else {
+                    ticketDTO.setNomeDepartamento("vazio");
+                }
+                return ticketDTO;
+
+            }).collect(Collectors.toList());
+        }
+        return null;
     }
 
-    public List<Ticket> listarTickets() {
-        return ticketRepository.findAll();
+    public List<TicketDTO> listarTickets() {
+        List<Ticket> ticketAll = ticketRepository.findAll();
+
+        if(!ticketAll.isEmpty()) {
+            return ticketAll.stream().map(ticket -> {
+                TicketDTO ticketDTO = new TicketDTO();
+
+                ticketDTO.setIdChamado(ticket.getIdChamado());
+                ticketDTO.setNomeUsuario(ticket.getFuncionario().getUsuario().getNomeUsuario());
+                ticketDTO.setTituloChamado(ticket.getTituloChamado());
+                ticketDTO.setDescricaoChamado(ticket.getDescricaoChamado());
+                ticketDTO.setDataHoraAbertura(ticket.getDataHoraAbertura());
+                ticketDTO.setPrioridade(ticket.getPrioridade());
+                ticketDTO.setStatusChamado(ticket.getStatusChamado());
+                ticketDTO.setDataHoraFechamento(ticket.getDataHoraFechamento());
+                if (ticket.getFuncionario().getDepartamento() != null) {
+                    ticketDTO.setNomeDepartamento(ticket.getFuncionario().getDepartamento().getNomeDepartamento());
+                } else {
+                    ticketDTO.setNomeDepartamento("vazio");
+                }
+                return ticketDTO;
+
+            }).collect(Collectors.toList());
+        }
+        return null;
+    }
+
     }
 
     // Adicione outros métodos conforme necessário, como atualizar e excluir tickets
-}
+
 

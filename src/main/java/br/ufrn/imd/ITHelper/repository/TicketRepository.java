@@ -13,6 +13,6 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
     List<Ticket> findByStatusChamado(char statusChamado);
     // Adicione métodos personalizados de acesso a dados, se necessário
 
-    List<Ticket> findByFuncionario_IdFuncionario(Long idFuncionario);
+    List<Ticket> findByFuncionario_usuario_nomeUsuario(String nomeUsuario);
 }
 

@@ -90,10 +90,10 @@ public class TicketContoller {
             return ResponseEntity.notFound().build();
         }
     }
-    @GetMapping("/vinculados/{nomeUsuario}")
+    @GetMapping("/vinculados/{nomeusuario}")
     @JsonView(Views.Public.class)
-    public ResponseEntity<List<Ticket>> obterTicketsVinculados(@PathVariable Long idFuncionario) {
-        List<Ticket> ticketsVinculados = ticketService.obterTicketsVinculados(idFuncionario);
+    public ResponseEntity<List<TicketDTO>> obterTicketsVinculados(@PathVariable String nomeusuario) {
+        List<TicketDTO> ticketsVinculados = ticketService.obterTicketsVinculados(nomeusuario);
         if (!ticketsVinculados.isEmpty()) {
             return ResponseEntity.ok(ticketsVinculados);
         } else {
@@ -103,7 +103,7 @@ public class TicketContoller {
 
     @GetMapping
     @JsonView(Views.Public.class)
-    public List<Ticket> listarTickets() {
+    public List<TicketDTO> listarTickets() {
         return ticketService.listarTickets();
     }
 
