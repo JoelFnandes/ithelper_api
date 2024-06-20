@@ -37,12 +37,15 @@ public class User implements UserDetails {
     @Column(length = 1, name = "tipousuario")
     private String tipoUsuario;
 
-    @Column(length = 16, name = "senhausuario")
+    @Column(length = 73, name = "senhausuario")
     private String password;
+
+
 
     public User() {
 
     }
+
 
     @JsonView({Views.Public.class})
     public Integer getId() {

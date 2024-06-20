@@ -1,5 +1,7 @@
 package br.ufrn.imd.ITHelper.service;
 
+import br.ufrn.imd.ITHelper.dto.EmployeeDTO;
+import br.ufrn.imd.ITHelper.dto.TicketDTO;
 import br.ufrn.imd.ITHelper.model.Employee;
 import br.ufrn.imd.ITHelper.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +29,18 @@ public class EmployeeService {
         return employeeOptional.orElse(null);
     }
 
-
+    public EmployeeDTO getFuncionarioByIdUser(Integer id){
+        Employee employee = employeeRepository.findByUsuarioId(id);
+        EmployeeDTO employeeDTO = new EmployeeDTO();
+        if(employee != null){
+            employeeDTO.setIdFuncionario(employee.getIdFuncionario());
+            employeeDTO.setCargoFuncionario(employee.getCargoFuncionario());
+            employeeDTO.setIdDepartamento(employee.getDepartamento().getIdDepartamento());
+            employeeDTO.setIdUsuario(employee.getUsuario().getId());
+            employeeDTO.setNomeDepartamento(employee.getDepartamento().getNomeDepartamento());
+        }
+        return employeeDTO;
+    }
 
     public Employee createEmployee(Employee employee) {
         return employeeRepository.save(employee);

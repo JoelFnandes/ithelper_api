@@ -1,8 +1,10 @@
 package br.ufrn.imd.ITHelper.controller;
 
+import br.ufrn.imd.ITHelper.dto.EmployeeDTO;
 import br.ufrn.imd.ITHelper.exception.UserNotFoundException;
 import br.ufrn.imd.ITHelper.model.Employee;
 import br.ufrn.imd.ITHelper.model.User;
+import br.ufrn.imd.ITHelper.repository.EmployeeRepository;
 import br.ufrn.imd.ITHelper.repository.UserRepository;
 import br.ufrn.imd.ITHelper.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,17 +14,18 @@ import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/funcionario")
 public class EmployeeController {
     private final EmployeeService employeeService;
+    private final EmployeeRepository employeeRepository;
     private final UserRepository userRepository;
 
     @Autowired
-    public EmployeeController(EmployeeService employeeService, UserRepository userRepository, UserRepository userRepository1) {
+    public EmployeeController(EmployeeService employeeService, UserRepository userRepository, EmployeeRepository employeeRepository, UserRepository userRepository1) {
         this.employeeService = employeeService;
+        this.employeeRepository = employeeRepository;
         this.userRepository = userRepository1;
     }
 
@@ -38,6 +41,21 @@ public class EmployeeController {
             return ResponseEntity.ok(funcionario);
         } else {
             return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/byUserId/{id}")
+    public ResponseEntity<EmployeeDTO> getFuncionarioByIdUser(@PathVariable String id) {
+        try {
+            Integer userID = Integer.parseInt(id);
+            EmployeeDTO funcionario = employeeService.getFuncionarioByIdUser(userID);
+            if (funcionario != null) {
+                return ResponseEntity.ok(funcionario);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            }
+        } catch (NumberFormatException ex) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
 

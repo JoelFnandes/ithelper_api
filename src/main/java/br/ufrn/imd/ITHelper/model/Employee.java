@@ -1,6 +1,7 @@
 package br.ufrn.imd.ITHelper.model;
 
 import br.ufrn.imd.ITHelper.config.Views;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
 
@@ -18,6 +19,7 @@ public class Employee {
     @ManyToOne
     @JoinColumn(name = "idusuario", nullable = false)
     private User usuario;
+
 
     @ManyToOne
     @JoinColumn(name = "iddepartamento", nullable = false)

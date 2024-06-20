@@ -37,6 +37,7 @@ public class TicketService {
                 TicketDTO ticketDTO = new TicketDTO();
 
                 ticketDTO.setIdChamado(ticket.getIdChamado());
+                ticketDTO.setIdFuncionario(ticket.getFuncionario().getIdFuncionario());
                 ticketDTO.setNomeUsuario(ticket.getFuncionario().getUsuario().getNomeUsuario());
                 ticketDTO.setTituloChamado(ticket.getTituloChamado());
                 ticketDTO.setDescricaoChamado(ticket.getDescricaoChamado());

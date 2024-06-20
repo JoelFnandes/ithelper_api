@@ -1,5 +1,6 @@
 package br.ufrn.imd.ITHelper;
 
+import br.ufrn.imd.ITHelper.model.User;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
